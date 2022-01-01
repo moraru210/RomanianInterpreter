@@ -15,8 +15,7 @@ before_install:
 install:
 - npm i
 
-script: 
-- npm test
+script:
 - npm run build
 - docker build -t moraru210:romanian-interpreter .
 - docker tag moraru210:romanian-interpreter registry.heroku.com/romanian-interpreter/web
