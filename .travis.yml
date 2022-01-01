@@ -22,10 +22,9 @@ script:
 
 deploy:
   provider: script
-  #push to heroku
   script:
     docker push moraru210:romanian-interpreter;
     docker push registry.heroku.com/romanian-interpreter/web
     heroku container:release web --app romanian-interpreter;
   on:
-    branch: master
+    branch: main
