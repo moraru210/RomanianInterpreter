@@ -17,16 +17,16 @@ install:
 
 script: 
 - npm test
-- npm build
-- docker build -t moraru210:romanian-interpreter
-- docker tag moraru210:romanian-interpreter registry.heroku.com/$HEROKU_APP_NAME/web
+- npm run build
+- docker build -t moraru210:romanian-interpreter .
+- docker tag moraru210:romanian-interpreter registry.heroku.com/romanian-interpreter/web
 
 deploy:
   provider: script
   #push to heroku
   script:
     docker push moraru210:romanian-interpreter;
-    docker push registry.heroku.com/$HEROKU_APP_NAME/web
+    docker push registry.heroku.com/romanian-interpreter/web
     heroku container:release web --app romanian-interpreter;
   on:
     branch: master
