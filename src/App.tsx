@@ -5,7 +5,7 @@ import Accreditation from './components/Accreditations'
 export default function App() {
   return (
     <div className="App">
-      <h1>Romanian Interpreter</h1>
+      <h1>Romanian Translator</h1>
       <Accreditation />
     </div>
   );
