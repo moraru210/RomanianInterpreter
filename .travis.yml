@@ -1,0 +1,32 @@
+sudo: required 
+language: node_js
+node_js:
+- 17
+services: 
+- docker
+
+before_install:
+  # install heroku CLI 
+  - wget -qO- https://toolbelt.heroku.com/install.sh | sh 
+  # login to docker registries (dockerhub + heroku) 
+  - echo "$ DOCKER_PASSWORD" | docker login -u "$ DOCKER_USERNAME" --password-stdin 
+  - echo "$ HEROKU_PASSWORD" | docker login -u "$ HEROKU_USERNAME" --password-stdin registry.heroku.com 
+
+install:
+- npm i
+
+script: 
+- npm test
+- npm build
+- docker build -t moraru210:romanian-interpreter
+- docker tag moraru210:romanian-interpreter registry.heroku.com/$HEROKU_APP_NAME/web
+
+deploy:
+  provider: script
+  #push to heroku
+  script:
+    docker push moraru210:romanian-interpreter;
+    docker push registry.heroku.com/$HEROKU_APP_NAME/web
+    heroku container:release web --app romanian-interpreter;
+  on:
+    branch: master
